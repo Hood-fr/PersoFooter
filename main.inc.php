@@ -50,9 +50,9 @@ function pft()
   {
 	global $template, $conf;
 $PAED = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ExtendedDescription';"));
-if($PAED['state'] == 'active') add_event_handler('AP_render_content', 'get_user_language_desc');
+if($PAED['state'] == 'active') add_event_handler('PFT_render_content', 'get_user_language_desc');
 
-$pat=trigger_change('AP_render_content', $conf['persoFooter']);
+$pat=trigger_change('PFT_render_content', $conf['persoFooter']);
 		 if (!empty($pat))
 			{
 				$template->assign('PERSO_FOOTER2', $pat);
