@@ -34,32 +34,27 @@ define('PFT_PATH' , PHPWG_PLUGINS_PATH . PFT_DIR . '/');
 define('PFT_ADMIN',get_root_url().'admin.php?page=plugin-'.PFT_DIR);
 
 add_event_handler('get_admin_plugin_menu_links', 'PFT_admin_menu');
-function PFT_admin_menu($menu)
-{
-  array_push($menu, array(
-	'NAME' => 'Perso Footer',
-    'URL' => get_admin_plugin_menu_link(PFT_PATH . 'admin.php')));
+function PFT_admin_menu($menu){
+  if (is_webmaster()){
+	array_push($menu, array(
+	  'NAME' => 'Perso Footer',
+	  'URL' => PFT_ADMIN));
+  } 
   return $menu;
 }
 
 add_event_handler('loc_end_page_tail', 'pft');
-function pft()
- {
-	global $page;
-   if ((script_basename() != 'admin') and ($page['body_id'] != 'thePopuphelpPage'))
-  {
+function pft(){
+global $page, $pwg_loaded_plugins;
+  if ((script_basename() != 'admin') and (isset($page['body_id']) and ($page['body_id'] != 'thePopuphelpPage'))){
 	global $template, $conf;
-$PAED = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ExtendedDescription';"));
-if($PAED['state'] == 'active') add_event_handler('AP_render_content', 'get_user_language_desc');
-
-$pat=trigger_change('AP_render_content', $conf['persoFooter']);
-		 if (!empty($pat))
-			{
-				$template->assign('PERSO_FOOTER2', $pat);
-			}
-			
+	if (isset($pwg_loaded_plugins['ExtendedDescription'])){add_event_handler('AP_render_content', 'get_user_language_desc');}
+	$pat=trigger_change('AP_render_content', $conf['persoFooter']);
+	 if (!empty($pat)){
+		 $template->assign('PERSO_FOOTER2', $pat);
+	}
 	$template->set_filename('PERSO_FOOTER', realpath(PFT_PATH.'persofooter.tpl'));	
 	$template->append('footer_elements', $template->parse('PERSO_FOOTER', true));
-	}
- }
+  }
+}
 ?>

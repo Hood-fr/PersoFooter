@@ -1,8 +1,8 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Perso Footer plugin for piwigo                                        |
+// | Perso Footer plugin for Piwigo by TEMMII                              |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2011 - 2016 ddtddt             http://temmii.com/piwigo/ |
+// | Copyright(C) 2011 - 2020 ddtddt             http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -32,14 +32,11 @@ check_status(ACCESS_ADMINISTRATOR);
 
 //-------------------------------------------------------- sections definitions
 
-	  if (!is_webmaster())
-  {
-    array_push($page['errors'], l10n('This section is reserved for the webmaster'));
-  }
-  else
-  {
+if (!is_webmaster()){
+  $_SESSION['page_errors'] = array(l10n('This section is reserved for the webmaster'));
+}else{
 
-// Gestion des onglets
+ // Tab manage
 if (!isset($_GET['tab']))
     $page['tab'] = 'gest';
 else
@@ -51,31 +48,32 @@ $tabsheet = new tabsheet();
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
-// Onglet gest
+// tab gest
 switch ($page['tab']){
   case 'gest':
+  
+  global $pwg_loaded_plugins;
    
   $template->assign('gestA',array('PFTBASE' => $conf['persoFooter'],));
-    $PAED = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'ExtendedDescription';"));
-	if($PAED['state'] == 'active'){
-	  $template->assign('useED',1);
-    }else{
-      $template->assign('useED',0);
-    }
+  if (isset($pwg_loaded_plugins['ExtendedDescription'])){
+	$template->assign('useED',1);
+  }else{
+    $template->assign('useED',0);
+  }
 
-if (isset($_POST['submitpft']))
-	{
-conf_update_param('persoFooter', $_POST['perso_footer']);
-$template->assign(
-    'gestA',
-    array('PFTBASE' => stripslashes($_POST['perso_footer']),));
-	array_push($page['infos'], l10n('Configuration update'));
-	}
+  if (isset($_POST['submitpft'])){
+    conf_update_param('persoFooter', $_POST['perso_footer']);
+    $template->assign(
+      'gestA',
+        array('PFTBASE' => stripslashes($_POST['perso_footer']),));
+		$_SESSION['page_infos'] = array(l10n('Configuration update'));
+  }
   break;
+  
   case 'help':
-$template->assign(
+  $template->assign(
     'gestB',
-	array('meta'=>l10n('nul'),));
+	  array('meta'=>l10n('nul'),));
 	
   break;
 }

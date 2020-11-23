@@ -1,8 +1,8 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | Perso Footer plugin for piwigo                                        |
+// | Perso Footer plugin for Piwigo by TEMMII                              |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2011 - 2016 ddtddt             http://temmii.com/piwigo/ |
+// | Copyright(C) 2011 - 2020 ddtddt             http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
