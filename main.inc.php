@@ -1,16 +1,16 @@
 <?php
 /*
 Plugin Name: Perso Footer
-Version: 2.8.a
+Version: 2.10.b
 Description: Add information in the footer
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=554
 Author: ddtddt
 Author URI: http://temmii.com/piwigo/
 */
 // +-----------------------------------------------------------------------+
-// | Perso Footer plugin for piwigo                                        |
+// | Perso Footer plugin for Piwigo by TEMMII                              |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2011 - 2016 ddtddt             http://temmii.com/piwigo/ |
+// | Copyright(C) 2011 - 2020 ddtddt             http://temmii.com/piwigo/ |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
